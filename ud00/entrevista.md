@@ -106,4 +106,4 @@ ORDER BY total_pedidos DESC;
 
 ## Presentación
 
-Cuando hayas respondido, revisa los cambios, crea tus commits y publícalos en tu repositorio privado. Cuando quieras presentar esta preparación, crea y publica la etiqueta `practica-00-v1`. No necesitas adjuntar este archivo ni capturas en Moodle.
+Cuando hayas respondido, revisa los cambios, crea tus commits y publícalos en tu repositorio privado. Cuando quieras presentar esta preparación, crea y publica la etiqueta `practica-ad-00-v1`. No necesitas adjuntar este archivo ni capturas en Moodle.
