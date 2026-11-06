@@ -1,0 +1,13 @@
+{
+  "empresas": [
+    {"id": "E01", "nombre": "Empresa A; formación técnica", "tutores": [{"id": "T01", "nombre": "Tutor A"}]},
+    {"id": "E02", "nombre": "Empresa B", "tutores": []}
+  ],
+  "estudiantes": [
+    {"id": "A01", "nombre": "Estudiante A; prueba", "ciclo": "DAM"},
+    {"id": "A02", "nombre": "Estudiante B", "ciclo": "DAW"}
+  ],
+  "asignaciones": [
+    {"id": "AS01", "estudianteId": "A01", "empresaId": "E01", "tutorId": "T01", "inicio": "2026-10-01", "fin": "2026-12-01"}
+  ]
+}

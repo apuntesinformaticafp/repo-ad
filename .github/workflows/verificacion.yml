@@ -1,0 +1,76 @@
+name: Verificación de prácticas y ejemplos AD
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Base de la práctica FCT
+        run: mvn -B -f ud01/practica/pom.xml test
+      - name: Ejemplos Java de los apuntes
+        run: mvn -B -f ud01/ejemplos/pom.xml test
+      - name: Laboratorio Java
+        run: mvn -B -f ud01/para_jugar/pom.xml compile exec:java -Dexec.mainClass=laboratorio.EmpresasFct
+      - name: Ejemplos Python UD1
+        run: python -B -m unittest discover -s ud01/para_jugar/python -p 'test_*.py'
+      - name: Base y ejemplos previos de UD2
+        run: |
+          mvn -B test
+          mvn -B -f ejemplos/pom.xml test
+      - name: Ejemplos Python UD2
+        run: python -B -m unittest discover -s ejemplos/ud02-bases-datos/python -p 'test_*.py'
+
+  entrega-ud01:
+    if: startsWith(github.ref, 'refs/tags/practica-ad-01-v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Aceptación de la práctica 01
+        run: mvn -B -f ud01/practica/pom.xml -Pcontrato clean verify
+
+  entrega-ud02:
+    if: startsWith(github.ref, 'refs/tags/practica-ad-02-v')
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:17-bookworm
+        env:
+          POSTGRES_DB: fct_pruebas
+          POSTGRES_USER: fct
+          POSTGRES_PASSWORD: fct_laboratorio
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U fct -d fct_pruebas"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      FCT_JDBC_URL: jdbc:postgresql://localhost:5432/fct_pruebas
+      FCT_DB_USER: fct
+      FCT_DB_PASSWORD: fct_laboratorio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Conserva la aceptación de UD1
+        run: mvn -B -f ud01/practica/pom.xml -Pcontrato clean verify
+      - name: Aceptación de UD2 en SQLite y PostgreSQL
+        run: mvn -B -Pcontrato-ud02,postgresql clean verify

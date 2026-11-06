@@ -1,0 +1,26 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/base:1-ubuntu-24.04
+    command: sleep infinity
+    volumes:
+      - ..:/workspaces/repo-ad:cached
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: fct_pruebas
+      POSTGRES_USER: fct
+      POSTGRES_PASSWORD: fct_laboratorio
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - postgres-ud02:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fct -d fct_pruebas"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  postgres-ud02:

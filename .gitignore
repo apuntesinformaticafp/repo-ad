@@ -1,0 +1,11 @@
+target/
+ejemplos/target/
+datos-demo/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+alumnado.csv
+informe-*.json
+.idea/
+*.iml
