@@ -25,12 +25,14 @@ jobs:
         run: mvn -B -f ud01/para_jugar/pom.xml compile exec:java -Dexec.mainClass=laboratorio.EmpresasFct
       - name: Ejemplos Python UD1
         run: python -B -m unittest discover -s ud01/para_jugar/python -p 'test_*.py'
-      - name: Base y ejemplos previos de UD2
+      - name: Base y ejemplos de UD2
         run: |
-          mvn -B test
-          mvn -B -f ejemplos/pom.xml test
+          mvn -B -f ud02/practica/pom.xml test
+          mvn -B -f ud02/ejemplos/pom.xml test
       - name: Ejemplos Python UD2
-        run: python -B -m unittest discover -s ejemplos/ud02-bases-datos/python -p 'test_*.py'
+        run: python -B -m unittest discover -s ud02/ejemplos/python -p 'test_*.py'
+      - name: Laboratorio UD2
+        run: python -B ud02/para_jugar/laboratorio.py
 
   entrega-ud01:
     if: startsWith(github.ref, 'refs/tags/practica-ad-01-v')
@@ -70,7 +72,5 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - name: Conserva la aceptación de UD1
-        run: mvn -B -f ud01/practica/pom.xml -Pcontrato clean verify
       - name: Aceptación de UD2 en SQLite y PostgreSQL
-        run: mvn -B -Pcontrato-ud02,postgresql clean verify
+        run: mvn -B -f ud02/practica/pom.xml -Pcontrato-ud02,postgresql clean verify

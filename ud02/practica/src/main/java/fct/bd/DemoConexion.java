@@ -2,7 +2,7 @@ package fct.bd;
 
 import java.sql.SQLException;
 
-/** Un mismo cliente usa trabajo o referencia según el perfil Maven. */
+/** Cliente proporcionado: ejecuta los métodos que se completan en esta unidad. */
 public class DemoConexion {
     public static void main(String[] args) {
         try {

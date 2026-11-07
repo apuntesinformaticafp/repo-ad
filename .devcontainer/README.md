@@ -9,7 +9,7 @@ preparar esas herramientas para que todos partamos del mismo entorno.
 - Ubuntu 24.04, Git y GitHub CLI.
 - Java 21 (Temurin), Maven 3.9.9 y Python 3.12.
 - Extensiones de Java y Python para el editor.
-- PostgreSQL 17 para el material posterior de bases de datos; UD01 no lo utiliza.
+- PostgreSQL 17 para [UD02](../ud02/README.md); UD01 no lo utiliza.
 
 Los POM fijan las versiones de bibliotecas y plugins. Las imágenes/features
 reciben revisiones dentro de las versiones indicadas; el entorno es actualizable,
@@ -39,7 +39,8 @@ generadas y están ignoradas. Una comprobación automática no presenta la prác
 
 ## Actualizar el entorno
 
-1. Guarda tus cambios y sincroniza `upstream` siguiendo la 0-B, resolviendo los
+1. Guarda tus cambios y sincroniza `upstream` siguiendo la
+   [práctica 0-B](https://www.apuntesinformaticafp.com/actividades/preparacion/repositorio-practicas.html), resolviendo los
    conflictos sin descartar tu código.
 2. Si cambiaron `.devcontainer/` o las herramientas, usa la paleta de comandos:
    **Codespaces: Rebuild Container**.
@@ -65,5 +66,10 @@ Tras actualizar la configuración: crear o reconstruir un Codespace, comprobar
 que termina `comprobar.sh`, ejecutar `JsonObjetos`, `CsvEscritura` y ambos
 laboratorios, y abrir los archivos generados. La aceptación de la práctica base
 debe fallar por los métodos pendientes; eso es distinto de un error del entorno.
+
+Para UD02, ejecuta `Conexion` con el servicio `db`, prueba una contraseña
+incorrecta y restaura la configuración. Comprueba también `Metadatos` y el
+laboratorio Python. La aceptación completa del esquema en ambos gestores se
+ejecuta sobre una implementación terminada, siguiendo el enunciado de UD02.
 
 Referencia: [contenedores de desarrollo en Codespaces](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/introduction-to-dev-containers).

@@ -4,12 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>docencia.ad</groupId>
-  <artifactId>repo-ad-practicas</artifactId>
+  <artifactId>ad-ud02-practica</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <adaptador.source>trabajo/src/main/java</adaptador.source>
     <pruebas.excluidas>contrato,postgresql</pruebas.excluidas>
     <pruebas.incluidas></pruebas.incluidas>
   </properties>
@@ -24,16 +23,6 @@
       <groupId>org.slf4j</groupId><artifactId>slf4j-nop</artifactId><version>2.0.17</version><scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.20.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-csv</artifactId>
-      <version>1.14.1</version>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.13.4</version>
@@ -46,23 +35,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.6.1</version>
-        <executions>
-          <execution>
-            <id>adaptador</id>
-            <phase>generate-sources</phase>
-            <goals><goal>add-source</goal></goals>
-            <configuration><sources>
-              <source>${adaptador.source}</source>
-              <!-- Compatibilidad del material existente de UD2 con el dominio de UD1. -->
-              <source>ud01/practica/src/main/java</source>
-            </sources></configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

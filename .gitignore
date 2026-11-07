@@ -1,5 +1,4 @@
 target/
-ejemplos/target/
 datos-demo/
 __pycache__/
 *.py[cod]

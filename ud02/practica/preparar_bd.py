@@ -1,4 +1,5 @@
 """Guion reproducible de UD2. Java realiza el DDL y comprueba la estructura."""
+
 import argparse
 from pathlib import Path
 import shutil
@@ -13,11 +14,21 @@ def main():
     maven = shutil.which("mvn")
     if maven is None:
         parser.error("Maven no está disponible; utiliza el entorno preparado")
-    comando = [maven, "-q"]
+    proyecto = Path(__file__).resolve().parent
+    comando = [maven, "-q", "-f", str(proyecto / "pom.xml")]
     accion = args.accion + (" --confirmar-pruebas" if args.confirmar_pruebas else "")
-    comando.extend(["clean", "compile", "exec:java", "-Dexec.mainClass=fct.bd.DemoConexion", "-Dexec.args=" + accion])
+    comando.extend(
+        [
+            "clean",
+            "compile",
+            "exec:java",
+            "-Dexec.mainClass=fct.bd.DemoConexion",
+            "-Dexec.args=" + accion,
+        ]
+    )
     # clean evita reutilizar clases entre ejecuciones.
-    return subprocess.run(comando, cwd=Path(__file__).resolve().parents[1]).returncode
+    # Destinos SQLite relativos a la raíz del repositorio, como en el enunciado.
+    return subprocess.run(comando, cwd=proyecto.parents[1]).returncode
 
 
 if __name__ == "__main__":

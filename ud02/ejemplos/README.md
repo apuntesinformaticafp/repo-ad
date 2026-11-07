@@ -1,15 +1,15 @@
-# UD2: conexión y estructura relacional
+# Ejemplos pequeños de UD02
 
 Ejemplos formativos. Cada programa aísla una idea; la aplicación FCT y su
-evidencia están en la raíz de este repositorio. Ejecuta los comandos desde la
+evidencia están en `ud02/practica/` y `ud02/practica.md`. Ejecuta los comandos desde la
 **raíz del repositorio completo**.
 Java usa JDBC; Python usa `sqlite3`, no JDBC. Ambos ilustran los mismos conceptos.
 
 ## Leer, predecir, ejecutar y cambiar
 
 ```bash
-mvn -q -f ejemplos/pom.xml compile exec:java -Dexec.mainClass=ejemplos.bd.Modelos
-python3 -B ejemplos/ud02-bases-datos/python/modelos.py
+mvn -q -f ud02/ejemplos/pom.xml compile exec:java -Dexec.mainClass=ejemplos.bd.Modelos
+python3 -B ud02/ejemplos/python/modelos.py
 ```
 
 Cambia el nombre final de clase para ejecutar el programa correspondiente:
@@ -26,6 +26,7 @@ Cambia el nombre final de clase para ejecutar el programa correspondiente:
 | Traducir el dominio | [Esquema](java/src/main/java/ejemplos/bd/Esquema.java) | Empresa y tutor: una FK en el lado muchos. Dibuja su correspondencia. |
 | Crear tablas y restricciones | [InfraestructuraTest](java/src/test/java/ejemplos/bd/InfraestructuraTest.java) | El gestor rechaza al tutor huérfano; compara con quitar la FK. |
 | Inicialización reproducible | [Reproducible](java/src/main/java/ejemplos/bd/Reproducible.java) | Creación repetida, detección de tabla ausente y reparación. |
+| Comprobación del esquema | [Metadatos](java/src/main/java/ejemplos/bd/Metadatos.java) | Nombres, tipos, nulabilidad, PK y FK: leer antes de comparar. |
 
 Python: [conexión](python/conexion.py), [configuración](python/configuracion.py)
 y [esquema](python/esquema.py). `with sqlite3.connect(...)` gestiona la transacción,
@@ -44,7 +45,7 @@ arrancar el servicio preparado. El host del servidor es `db`, no `localhost`:
 export FCT_JDBC_URL='jdbc:postgresql://db:5432/fct_pruebas'
 export FCT_DB_USER='fct'
 export FCT_DB_PASSWORD='fct_laboratorio'
-mvn -q -f ejemplos/pom.xml compile exec:java -Dexec.mainClass=ejemplos.bd.Conexion
+mvn -q -f ud02/ejemplos/pom.xml compile exec:java -Dexec.mainClass=ejemplos.bd.Conexion
 ```
 
 La contraseña publicada es **ficticia y exclusiva del contenedor de laboratorio**.
@@ -56,17 +57,19 @@ y usa `localhost:55432` en la URL JDBC. `docker compose -f .devcontainer/compose
 detiene solo este servicio; repite la conexión para observar el error y vuelve a
 arrancarlo con el comando anterior. No cambies los permisos globales de Docker.
 
-## Comprobaciones de las dos unidades
+## Comprobaciones y continuación
 
 ```bash
-mvn -B -f ejemplos/pom.xml clean test
-python3 -B -m unittest discover -s ud01/para_jugar/python -p 'test_*.py'
-python3 -B -m unittest discover -s ejemplos/ud02-bases-datos/python -p 'test_*.py'
+mvn -B -f ud02/ejemplos/pom.xml clean test
+python3 -B -m unittest discover -s ud02/ejemplos/python -p 'test_*.py'
 ```
 
 Las pruebas Java automáticas de los ejemplos son SQLite. La comprobación de
 PostgreSQL se ejecuta explícitamente con `Conexion`; la aceptación del esquema
-FCT en los dos gestores está en la práctica privada.
+FCT en los dos gestores está en [la práctica](../enunciado.md).
+
+Continúa con el [laboratorio](../para_jugar/README.md) para experimentar con
+metadatos y restricciones sin depender de tener terminada la práctica.
 
 ## Referencias de las herramientas
 
